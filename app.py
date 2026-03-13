@@ -571,3 +571,8 @@ if __name__ == '__main__':
             print("Sample courses created and assigned to John Smith")
 
     app.run(debug=True, host='0.0.0.0', port=4000)
+    
+@app.route("/search")
+def search():
+    query = request.args.get("q")
+    return f"<h1>Search Results for: {query}</h1>"
