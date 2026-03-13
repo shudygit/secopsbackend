@@ -107,8 +107,7 @@ jobs:
 
     - name: Download ZAP report
       run: |
-        scp ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/tmp/zap_report.html ./zap_report.html
-
+        scp -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/tmp/zap_report.html ./zap_report.html
     - name: Upload ZAP Reports
       uses: actions/upload-artifact@v4
       with:
