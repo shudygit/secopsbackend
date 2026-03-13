@@ -88,8 +88,7 @@ jobs:
 
     - name: Deploy backend container
       run: |
-        ssh -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/shudhatmj16/code-lab1 && docker-compose pull backend && docker-compose up -d --no-deps backend"
-
+        ssh -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/shudhatmj16/code-lab1 && docker-compose pull backend && docker-compose up -d --no-deps backend"
     - name: Wait for backend to be ready
       run: |
         echo "Waiting for backend to start..."
@@ -103,11 +102,11 @@ jobs:
 
     - name: Run ZAP on VM
       run: |
-        ssh -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "docker pull ghcr.io/zaproxy/zaproxy:stable && docker run --rm -v /tmp:/zap/wrk -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://${{ secrets.SERVER_IP }}:4000 -r zap_report.html -I -d"
+        ssh -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "docker pull ghcr.io/zaproxy/zaproxy:stable && docker run --rm -v /tmp:/zap/wrk -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://${{ secrets.SERVER_IP }}:4000 -r zap_report.html -I -d"
 
     - name: Download ZAP report
       run: |
-        scp -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/tmp/zap_report.html ./zap_report.html
+        scp -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/tmp/zap_report.html ./zap_report.html
     - name: Upload ZAP Reports
       uses: actions/upload-artifact@v4
       with:
