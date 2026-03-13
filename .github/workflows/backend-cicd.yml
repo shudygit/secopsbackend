@@ -88,7 +88,7 @@ jobs:
 
     - name: Deploy backend container
       run: |
-        ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/shudhatmj16/code-lab1 && docker-compose pull backend && docker-compose up -d --no-deps backend"
+        ssh -o StrictHostKeyChecking=no -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "cd /home/shudhatmj16/code-lab1 && docker-compose pull backend-flask && docker-compose up -d --no-deps backend-flask"
     
     - name: Wait for backend to be ready
       run: |
