@@ -62,7 +62,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Build and push image
+      # Build and push the image
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
